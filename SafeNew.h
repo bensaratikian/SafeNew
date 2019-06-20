@@ -17,7 +17,7 @@ template<typename T>
 class SafeNew final {
 public:
    //Default constructor lockes mutex to make class thread-safe
-    SafeNew();
+    SafeNew() = default;
     
     //Copy and Move constructors are deleted
     SafeNew(const SafeNew& other) = delete;
@@ -28,7 +28,7 @@ public:
     SafeNew& operator=(SafeNew&& other) = delete;
     
     //Overloaded operator() is used for main functionality
-    T* operator()(const T& arg);
+    T* operator()(T&& arg);
     
     //Destructor of the class deallocates the used memory
     ~SafeNew();
@@ -37,7 +37,4 @@ private:
     std::mutex _m;
 };
 #include "SafeNew.impl.h"
-
-template<typename U>
-SafeNew<U> _new;
 #endif /* SafeNew_hpp */

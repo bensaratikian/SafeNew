@@ -20,6 +20,9 @@ struct A {
 };
 
 int main() {
-    A* a = _new<A>(A());
+    SafeNew<A> _new;
+    SafeNew<int> _new1;
+    A* a = _new(A());
+    int* i = _new1(12);
     return 0;
 }

@@ -9,13 +9,9 @@
 #define SafeNew_impl_h
 
 template<typename T>
-SafeNew<T>::SafeNew() {
+T* SafeNew<T>::operator()(T&& arg) {
     std::lock_guard<std::mutex> lock(_m);
-}
-
-template<typename T>
-T* SafeNew<T>::operator()(const T& arg) {
-    T* ptr = new T(arg);
+    T* ptr = new T(std::forward<T&&>(arg));
     _stack.emplace(ptr);
     return ptr;
 }
