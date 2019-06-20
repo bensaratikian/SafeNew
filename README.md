@@ -2,7 +2,7 @@
 SafeNew is wrapper class of **__new__**, and was built based on RAII principle.
 You can use **C**'s raw pointers without worrying about memory leaks. You can simply deallocate SafeNew object as much as you want and without any worries.
 
-**This is an example of using the ___template<typename T> SafeNew<T>__ object, which is exception-safe and also memory leak safe**
+**This is an example of using the __SafeNew<T>__ object, which is exception-safe and also memory leak safe**
 ```C++
 int main() {
 SafeNew<A> _new;
