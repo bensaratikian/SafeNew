@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stack>
 #include <vector>
-#include <mutex>
 
 template<typename T>
 class SafeNew final {
@@ -30,11 +29,13 @@ public:
     //Overloaded operator() is used for main functionality
     T* operator()(T&& arg);
     
+    //Deallocates all the stack memory
+    void dealloc();
+    
     //Destructor of the class deallocates the used memory
     ~SafeNew();
 private:
     std::stack<const T*, std::vector<const T*>> _stack;
-    std::mutex _m;
 };
 #include "SafeNew.impl.h"
 #endif /* SafeNew_hpp */

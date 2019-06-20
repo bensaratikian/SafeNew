@@ -10,18 +10,22 @@
 
 template<typename T>
 T* SafeNew<T>::operator()(T&& arg) {
-    std::lock_guard<std::mutex> lock(_m);
     T* ptr = new T(std::forward<T&&>(arg));
     _stack.emplace(ptr);
     return ptr;
 }
 
 template<typename T>
-SafeNew<T>::~SafeNew() {
+void SafeNew<T>::dealloc() {
     while(_stack.size()) {
         delete _stack.top();
         _stack.pop();
     }
+}
+
+template<typename T>
+SafeNew<T>::~SafeNew() {
+    dealloc();
 }
 
 #endif /* SafeNew_impl_h */

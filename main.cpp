@@ -21,8 +21,15 @@ struct A {
 
 int main() {
     SafeNew<A> _new;
-    SafeNew<int> _new1;
+    SafeNew<double> _new1;
+    
     A* a = _new(A());
-    int* i = _new1(12);
+    _new.dealloc();
+    _new.dealloc();
+    
+    double* d = _new1(3.14);
+    _new1.dealloc();
+    _new1.dealloc();
+    
     return 0;
 }
